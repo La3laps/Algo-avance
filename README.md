@@ -1,22 +1,28 @@
 # Algo avancé au campus numérique
 
-Pour compiler/lancer les différents programmes :
-(Optionel) -l ou --log (pour voir les logs)
 
-### Premier tri
+### Les programmes de tri
+Pour obtenir les logs de certains programmes il est possible de rajouter :
+- (Optionel) -l ou --log 
+
 ```
-g++ sorts/sorting.cpp -o sorting && ./sorting
+g++ sorts/***nom_du_fichier.cpp*** -o sorting && ./sorting
+```
+<sub>Exemple : g++ sorts/sorting.cpp -o sorting && ./sorting</sub>
+
+### Pour le programme de tri
+
+```
+g++ visual-sort/visual_bubble_sort.cpp -o sorting && ./sorting
 ```
 
-### Tri par insertion
+Une fois compilé on peut lancer le programme a 5 vitesses différentes (1-5).
+Exemple :
 ```
-g++ sorts/insertion-sort.cpp -o sorting && ./sorting
-```
-
-### Tri par selection
-```
-g++ sorts/selection-sort.cpp -o sorting && ./sorting
+./starting 4
 ```
 
 Liste des choses vues :
  - Algo de tri
+ - Args en C++
+ - Affichage console

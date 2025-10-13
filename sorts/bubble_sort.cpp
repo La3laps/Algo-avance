@@ -3,10 +3,10 @@
 #include <ctime>
 using namespace std;
 
-const int ARR_LENGTH = 10;
+const int ARR_LENGTH = 100;
 
 void print_arr(int arr[], bool sorted);
-void insertion_sort_arr(int arr[], char *log = nullptr);
+void bubble_sort_arr(int arr[], char *log = nullptr);
 void populate_arr(int arr[]);
 bool is_number_in_array(int arr[], int number);
 bool log_active(char *log);
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
     print_arr(arr, isSorted);
 
-    insertion_sort_arr(arr, log);
+    bubble_sort_arr(arr, log);
 
     isSorted = true;
 
@@ -49,9 +49,10 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void insertion_sort_arr(int arr[], char *log)
+void bubble_sort_arr(int arr[], char *log)
 {
     int i, j;
+    bool swap = true;
 
     // Log titre
     if (log_active(log))
@@ -60,21 +61,26 @@ void insertion_sort_arr(int arr[], char *log)
         simple_print_arr(arr);
     }
 
-    for (i = 0; i < ARR_LENGTH; i++)
+    for (i = 0; i < ARR_LENGTH - 1; i++)
     {
-        int min = i;
+        swap = false;
 
-        for (j = i + 1; j < ARR_LENGTH; j++)
+        for (j = 0; j < ARR_LENGTH - i - 1; j++)
         {
-            if (arr[j] < arr[min])
+            if (arr[j] > arr[j + 1])
             {
-                min = j;
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+
+                swap = true;
             }
         }
 
-        int temp = arr[min];
-        arr[min] = arr[i];
-        arr[i] = temp;
+        if (!swap)
+        {
+            break;
+        }
 
         if (log_active(log))
         {
