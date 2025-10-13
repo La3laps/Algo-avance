@@ -3,10 +3,10 @@
 #include <ctime>
 using namespace std;
 
-const int ARR_LENGTH = 10;
+const int ARR_LENGTH = 53;
 
 void print_arr(int arr[], bool sorted);
-void sort_arr(int arr[], char *log = nullptr);
+void insertion_sort_arr(int arr[], char *log = nullptr);
 void populate_arr(int arr[]);
 bool is_number_in_array(int arr[], int number);
 bool log_active(char *log);
@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
     populate_arr(arr);
 
     print_arr(arr, isSorted);
-    sort_arr(arr, log);
+
+    insertion_sort_arr(arr, log);
 
     isSorted = true;
 
@@ -41,33 +42,34 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void sort_arr(int arr[], char *log)
+void insertion_sort_arr(int arr[], char *log)
 {
+    int i, j;
 
+    // Log titre
     if (log_active(log))
     {
         cout << "Logs de tri:\n";
         simple_print_arr(arr);
     }
 
-    for (int i = 0; i < ARR_LENGTH - 1; i++)
+    for (i = 1; i < ARR_LENGTH; i++)
     {
-        for (int j = 0; j < ARR_LENGTH - i - 1; j++)
-        {
-            if (arr[j] > arr[j + 1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+        int current_nbr = arr[i];
 
-                if (log_active(log))
-                {
-                    simple_print_arr(arr);
-                }
-            }
+        for (j = i; j > 0 && arr[j - 1] > current_nbr; j--)
+        {
+            arr[j] = arr[j - 1];
+        }
+        arr[j] = current_nbr;
+
+        if (log_active(log))
+        {
+            simple_print_arr(arr);
         }
     }
 
+    // Retour à la ligne après les logs
     if (log_active(log))
     {
         cout << "\n";
