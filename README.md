@@ -1,5 +1,6 @@
 # Algo avancé au campus numérique
 
+TODO: Check si le programme tourne sur windows.
 
 ### Les programmes de tri
 Pour obtenir les logs de certains programmes il est possible de rajouter :
@@ -13,7 +14,7 @@ g++ sorts/***nom_du_fichier.cpp*** -o sorting && ./sorting
 ### Pour le programme de tri
 
 ```
-g++ visual-sort/visual_bubble_sort.cpp -o sorting && ./sorting
+g++ visual-sort/visual_sort.cpp -o sorting && ./sorting
 ```
 
 Une fois compilé on peut lancer le programme a 5 vitesses différentes (1-5).
