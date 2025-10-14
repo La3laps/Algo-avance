@@ -1,0 +1,23 @@
+.empty {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: rgb(248, 225, 217);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.start {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: coral;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.finish {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: lightgreen;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}

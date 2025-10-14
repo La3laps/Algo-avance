@@ -1,4 +1,4 @@
-const data = {
+export const mazeData : any = {
     "3": {
         "ex-0": [
             {

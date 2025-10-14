@@ -1,0 +1,11 @@
+<div class="maze-container">
+    <div class="maze-grid" [ngStyle]="{
+      'grid-template-columns': 'repeat(' + mazeSize + ', 1fr)'
+    }">
+        @for (row of mazeGrid; track $index) {
+        @for(column of row; track $index){
+        <app-cell [squareCssClass]="getCellCssClass(column)"></app-cell>
+        }
+        }
+    </div>
+</div>
