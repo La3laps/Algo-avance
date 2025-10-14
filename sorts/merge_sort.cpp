@@ -3,14 +3,16 @@
 #include <ctime>
 using namespace std;
 
-const int ARR_LENGTH = 100;
+const int ARR_LENGTH = 49;
 
 void print_arr(int arr[], bool sorted);
-void bubble_sort_arr(int arr[], char *log = nullptr);
+void merge_sort_arr(int arr[], char *log = nullptr);
 void populate_arr(int arr[]);
 bool is_number_in_array(int arr[], int number);
 bool log_active(char *log);
 void simple_print_arr(int arr[]);
+void merge_sort(int arr[], int left, int right, char *log);
+void merge(int arr[], int left, int mid, int right, char *log);
 
 int main(int argc, char *argv[])
 {
@@ -40,7 +42,7 @@ int main(int argc, char *argv[])
 
     print_arr(arr, isSorted);
 
-    bubble_sort_arr(arr, log);
+    merge_sort_arr(arr, log);
 
     isSorted = true;
 
@@ -49,11 +51,8 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void bubble_sort_arr(int arr[], char *log)
+void merge_sort_arr(int arr[], char *log)
 {
-    int i, j;
-    bool swap = true;
-
     // Log titre
     if (log_active(log))
     {
@@ -61,38 +60,65 @@ void bubble_sort_arr(int arr[], char *log)
         simple_print_arr(arr);
     }
 
-    for (i = 0; i < ARR_LENGTH - 1; i++)
-    {
-        swap = false;
-
-        for (j = 0; j < ARR_LENGTH - i - 1; j++)
-        {
-            if (arr[j] > arr[j + 1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-
-                swap = true;
-            }
-        }
-
-        if (!swap)
-        {
-            break;
-        }
-
-        if (log_active(log))
-        {
-            simple_print_arr(arr);
-        }
-    }
+    merge_sort(arr, 0, ARR_LENGTH - 1, log);
 
     // Retour à la ligne après les logs
     if (log_active(log))
     {
         cout << "\n";
     }
+}
+
+void merge_sort(int arr[], int left, int right, char *log)
+{
+    if (left < right)
+    {
+        int mid = left + (right - left) / 2;
+
+        merge_sort(arr, left, mid, log);
+        simple_print_arr(arr);
+        merge_sort(arr, mid + 1, right, log);
+        simple_print_arr(arr);
+        merge(arr, left, mid, right, log);
+        simple_print_arr(arr);
+    }
+}
+
+void merge(int arr[], int left, int mid, int right, char *log)
+{
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    int *L = new int[n1];
+    int *R = new int[n2];
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+
+    while (i < n1 && j < n2)
+    {
+        if (L[i] <= R[j])
+        {
+            arr[k++] = L[i++];
+        }
+        else
+        {
+            arr[k++] = R[j++];
+        }
+    }
+
+    while (i < n1)
+        arr[k++] = L[i++];
+
+    while (j < n2)
+        arr[k++] = R[j++];
+
+    delete[] L;
+    delete[] R;
 }
 
 void print_arr(int arr[], bool sorted = true)
