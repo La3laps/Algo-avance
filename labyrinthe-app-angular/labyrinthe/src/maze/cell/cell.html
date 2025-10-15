@@ -1,23 +1,17 @@
-<div class="{{ _squareCssClass }}" style="position: relative">
+<div
+  class="{{ _squareCssClass }}"
+  [ngStyle]="{
+    'position': 'relative',
+}"
+  [ngStyle]=""
+>
   @if(walls[0]){
-  <div class="wall top"></div>
+  <div class="wall top" [ngStyle]="wallStyle('top')"></div>
   } @if(walls[1]){
-  <div class="wall right"></div>
+  <div class="wall right" [ngStyle]="wallStyle('right')"></div>
   } @if(walls[2]){
-  <div class="wall bottom"></div>
+  <div class="wall bottom" [ngStyle]="wallStyle('bottom')"></div>
   } @if(walls[3]){
-  <div class="wall left"></div>
-  } @if(true){
-  <!-- showTopLeftCorner() -->
-  <div class="corner top-left"></div>
-  } @if(true){
-  <!-- showBottomLeftCorner() -->
-  <div class="corner bottom-left"></div>
-  } @if (true) {
-  <!-- showTopRightCorner() -->
-  <div class="corner top-right"></div>
-  } @if(true){
-  <!-- showTopRightCorner() -->
-  <div class="corner bottom-right"></div>
+  <div class="wall left" [ngStyle]="wallStyle('left')"></div>
   }
 </div>

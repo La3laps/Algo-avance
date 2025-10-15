@@ -2,7 +2,8 @@
   <div
     class="maze-grid"
     [ngStyle]="{
-      'grid-template-columns': 'repeat(' + mazeSize + ', 1fr)'
+      'grid-template-columns': 'repeat(' + mazeSize + ', 1fr)',
+      'max-width': maxWidth + 'px'
     }"
   >
     @for (row of mazeGrid; track $index) { @for(cell of row; track $index){
@@ -12,6 +13,7 @@
       [posX]="cell.posX"
       [posY]="cell.posY"
       [mazeSize]="mazeSize"
+      [cellPixelSize]="cellPixelSize"
     ></app-cell>
 
     } }

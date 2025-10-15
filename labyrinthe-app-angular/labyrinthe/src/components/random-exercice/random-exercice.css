@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+.random {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.random-container {
+  position: relative;
+  margin-bottom: 3%;
+}
+
+.random:hover + label {
+  background-color: #ffeba7;
+}
+
+.random + label {
+  position: relative;
+  z-index: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  height: 40px;
+  transition: all 200ms linear;
+  border-radius: 4px;
+  width: 220px;
+  letter-spacing: 1px;
+  background-color: #f2dbd3;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  color: var(--bg-color);
+  box-shadow: 0 12px 35px 0 rgba(255, 235, 167, 0.2);
+}
+
+.random + label .uil {
+  font-size: 15px;
+  margin-left: 10px;
+  transition: transform 200ms linear;
+}
+
+.uil {
+  font-size: 22px;
+}
