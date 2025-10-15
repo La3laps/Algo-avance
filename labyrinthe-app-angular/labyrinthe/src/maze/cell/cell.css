@@ -1,6 +1,7 @@
 .empty,
 .start,
-.finish {
+.finish,
+.visited {
   width: 100%;
   aspect-ratio: 1 / 1;
   transition: all 0.3s ease;
@@ -16,9 +17,13 @@
   background-color: #f5b39c;
 }
 
+.visited {
+  background-color: red;
+}
+
 .finish {
   background-color: #99e4c1;
-  background-image: url('../../../public/finish_line.png');
+  background-image: url('../../../public/finish_line.gif');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 70%;

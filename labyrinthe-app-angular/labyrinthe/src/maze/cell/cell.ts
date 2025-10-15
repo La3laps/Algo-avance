@@ -1,12 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export enum squareType {
-  empty,
-  start,
-  finish,
-  path,
-}
+import { cellType } from './cell-type-enum';
 
 @Component({
   selector: 'app-cell',
@@ -19,11 +13,11 @@ export class Cell {
   @Input() posX!: number;
   @Input() posY!: number;
   @Input() mazeSize!: number;
-  @Input() cellPixelSize!: number;
-  @Input()
-  set squareCssClass(value: string) {
-    this._squareCssClass = value;
-  }
+  @Input() type!: cellType;
+  @ViewChild('cellDiv', { static: true }) cellDiv!: ElementRef;
+
+  @Input() currentCellType: cellType = cellType.empty;
+  public nbrOfPathsLeft!: number;
 
   get wallThickness(): string {
     const cellSize = Math.floor(600 / this.mazeSize);
@@ -31,35 +25,14 @@ export class Cell {
     return `${wall}px`;
   }
 
-  private _squareType: squareType = squareType.empty;
-  public _squareCssClass: string = '';
-
   ngOnInit() {
-    this.setType(this._squareCssClass);
-  }
 
+  }
   /////////////////////////////////////
   //////// LOGIC FOR BG COLOR /////////
   /////////////////////////////////////
 
-  setType(classCss: string) {
-    switch (classCss) {
-      case 'empty':
-        this._squareType = squareType.empty;
-        break;
-      case 'start':
-        this._squareType = squareType.start;
-        break;
-      case 'finish':
-        this._squareType = squareType.finish;
-        break;
-      case 'path':
-        this._squareType = squareType.path;
-        break;
-      default:
-        break;
-    }
-  }
+
   /////////////////////////////////////
   ////////// LOGIC FOR WALLS //////////
   /////////////////////////////////////
@@ -82,5 +55,12 @@ export class Cell {
     ]
       .filter((c) => c)
       .join(' ');
+  }
+
+  /////////////////////////////////////
+  //////// LOGIC FOR CELL_POS /////////
+  /////////////////////////////////////
+  getBoundingClientRect() {
+    return this.cellDiv.nativeElement.getBoundingClientRect();
   }
 }

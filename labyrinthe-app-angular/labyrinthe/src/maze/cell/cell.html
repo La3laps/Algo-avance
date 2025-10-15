@@ -1,10 +1,6 @@
-<div
-  class="{{ _squareCssClass }}"
-  [ngStyle]="{
+<div #cellDiv class="{{ currentCellType.toString() }}" [ngStyle]="{
     'position': 'relative',
-}"
-  [ngStyle]=""
->
+}" [ngStyle]="">
   @if(walls[0]){
   <div class="wall top" [ngStyle]="wallStyle('top')"></div>
   } @if(walls[1]){

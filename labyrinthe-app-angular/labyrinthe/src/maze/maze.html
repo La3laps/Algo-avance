@@ -1,21 +1,14 @@
 <div class="maze-container">
-  <div
-    class="maze-grid"
-    [ngStyle]="{
+  <div class="maze-grid" [ngStyle]="{
       'grid-template-columns': 'repeat(' + mazeSize + ', 1fr)',
       'max-width': maxWidth + 'px'
-    }"
-  >
+    }">
     @for (row of mazeGrid; track $index) { @for(cell of row; track $index){
-    <app-cell
-      [squareCssClass]="getCellCssClass(cell)"
-      [walls]="cell.walls"
-      [posX]="cell.posX"
-      [posY]="cell.posY"
-      [mazeSize]="mazeSize"
-      [cellPixelSize]="cellPixelSize"
-    ></app-cell>
+    <app-cell #cellElement [attr.data-pos]="'x' + cell.posX + '-y' + cell.posY" [currentCellType]="setType(cell)"
+      [walls]="cell.walls" [posX]="cell.posX" [posY]="cell.posY" [mazeSize]="mazeSize"></app-cell>
 
     } }
   </div>
 </div>
+<app-tunic-fox [posForFox]="posForFox" [mazeSize]="mazeSize" [foxImg]="foxImg"
+  [foxFlipped]="foxFlipped"></app-tunic-fox>

@@ -1,77 +1,150 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, HostListener } from '@angular/core';
 import { mazeData as _mazeData } from '../data/labyrinthes';
 import { CommonModule } from '@angular/common';
 import { Cell as CellComponent } from './cell/cell';
-import { squareType } from './cell/cell';
+import { Cell } from './cell/cell-interface';
+import { cellType } from './cell/cell-type-enum'; 
 import { MazeCommunicationService } from '../components/dropdown-exercice/maze-communication-service';
 import { Subscription } from 'rxjs';
-
-interface Cell {
-  posX: number;
-  posY: number;
-  walls: boolean[]; // [top, right, bottom, left]
-  entrance?: boolean;
-  exit?: boolean;
-  visited?: boolean; // For algorithm use
-}
+import { TunicFox } from '../components/tunic-fox-image/tunic-fox/tunic-fox';
+import { MoveUtils, vecDir, Direction } from './maze-algorithms/move-utils';
 
 @Component({
   standalone: true,
   selector: 'app-maze',
-  imports: [CommonModule, CellComponent],
+  imports: [CommonModule, CellComponent, TunicFox],
   templateUrl: './maze.html',
   styleUrl: './maze.css',
 })
 export class Maze implements OnInit {
-  squareType = squareType;
+  ////////////////////////////
+  /////// Data values ////////
+  ////////////////////////////
+  cellType = cellType;
   mazeData = _mazeData;
-  mazeGrid: Cell[][] = [];
   mazeSize!: number; // Default size
-  path: Cell[] = [];
+  mazeGrid: Cell[][] = [];
+  currentPos!: Cell;
+  sizeKey: string = '3';
+  exerciseKey: string = 'ex-0';
+  @ViewChildren('cellElement') cellElements!: QueryList<CellComponent>;
 
-  // Style values
-  maxWidth = 700;
-  cellPixelSize = this.maxWidth / this.mazeSize;
+  ////////////////////////////
+  /////// Style values ///////
+  ////////////////////////////
+  maxWidth = 600;
+  posForFox: { posX: number; posY: number } = { posX: 0, posY: 0 };
+  foxImg: string = 'tunic_fox_sleep.gif';
+  foxFlipped: boolean = false;
 
+  ////////////////////////////
+  ///////// Classes //////////
+  ////////////////////////////
   private sub!: Subscription;
   private randomSub!: Subscription;
+  private moveUtils!: MoveUtils;
 
-  constructor(private mazeCommService: MazeCommunicationService) {}
+  constructor(private mazeCommService: MazeCommunicationService) {
+    this.moveUtils = new MoveUtils(this.mazeGrid, this.currentPos);
+  }
 
+  ////////////////////////////
+  /////////// Init ///////////
+  ////////////////////////////
   ngOnInit() {
     this.sub = this.mazeCommService.exerciceSelected$.subscribe(({ size, exercice }) => {
       if (size && exercice) {
-        this.constructMaze(size, exercice);
+        this.setMazeSizeAndExerciseKey(size, exercice);
+        this.constructMaze();
+        this.getCurrentCellOnViewport();
       }
     });
 
     this.randomSub = this.mazeCommService.randomSelected$.subscribe(() => {
       var randomValuesGen = this.randomizeForDefaultMaze();
-      this.constructMaze(randomValuesGen.size, randomValuesGen.exercise);
+      this.setMazeSizeAndExerciseKey(randomValuesGen.size, randomValuesGen.exercise);
+      this.constructMaze();
+      this.getCurrentCellOnViewport();
     });
 
     //Default
     var randomValuesGen = this.randomizeForDefaultMaze();
-    this.constructMaze(randomValuesGen.size, randomValuesGen.exercise);
+    this.setMazeSizeAndExerciseKey(randomValuesGen.size, randomValuesGen.exercise);
+    this.constructMaze();
   }
 
+  ngAfterViewInit() {
+    this.getCurrentCellOnViewport();
+  }
+
+  ////////////////////////////
+  ////////// Code ////////////
+  ////////////////////////////
   ngOnDestroy() {
     this.sub.unsubscribe();
     this.randomSub.unsubscribe();
   }
 
-  constructMaze(sizeKey: string, exerciseKey: string) {
-    this.mazeSize = Number(sizeKey);
-    this.loadMaze(sizeKey, exerciseKey);
+  constructMaze() {
+    this.loadMaze();
     this.createCells();
+    this.moveFox(Direction.DOWN);
   }
 
-  loadMaze(sizeKey: string, exerciseKey: string) {
-    const mazeCells = this.mazeData[sizeKey][exerciseKey];
+  async moveFox(direction: Direction) {
+
+    await this.delay(300);
+
+    // Move the coordinates for fox
+    const newPos = this.moveUtils.moveToNextCell(this.mazeGrid, this.currentPos, direction);
+    this.currentPos = newPos;
+
+    // Change fox image and flip if needed
+    this.foxImg = 'tunic_fox_stand.gif';
+    if (direction === Direction.LEFT) this.foxFlipped = true;
+    if (direction === Direction.RIGHT) this.foxFlipped = false;
+
+    this.getCurrentCellOnViewport();
+    await this.delay(300);
+
+
+    if (!(this.checkCellType(this.currentPos) === cellType.finish)) {
+      // Algorihms go here
+      var randomDir: Direction = this.randomDirectionGen();
+      this.moveFox(randomDir);
+    }
+
+  }
+
+  randomDirectionGen(): Direction {
+    return Math.floor(Math.random() * 4);
+  }
+
+  setMazeSizeAndExerciseKey(size: string, exercise: string) {
+    this.mazeSize = Number(size);
+    this.sizeKey = size;
+    this.exerciseKey = exercise;
+  }
+
+  updateVisitedCell() {
+    this.mazeGrid.forEach((row: Cell[]) => {
+      row.forEach((col: Cell) => {
+        if (this.currentPos == col) {
+          col.visited = true;
+        }
+      })
+    })
+  }
+
+  loadMaze() {
+    const mazeCells = this.mazeData[this.sizeKey][this.exerciseKey];
     this.mazeGrid = Array.from({ length: this.mazeSize }, () => Array(this.mazeSize).fill(null));
+
     mazeCells.forEach((cell: any) => {
       this.mazeGrid[cell.posX][cell.posY] = cell;
     });
+    this.setCurrentPos();
+    // console.log('Current Pos: ' + this.currentPos.posX + ' ' + this.currentPos.posY);
   }
 
   createCells() {
@@ -81,6 +154,40 @@ export class Maze implements OnInit {
         cells.push(this.mazeGrid[i][j]);
       }
     }
+  }
+
+  setCurrentPos(posX: number = -1, posY: number = -1) {
+    if (posX === -1 && posY === -1) {
+      for (let i = 0; i < this.mazeSize; i++) {
+        for (let j = 0; j < this.mazeSize; j++) {
+          const cell = this.mazeGrid[i][j];
+          if (cell && cell.entrance) {
+            this.currentPos = cell;
+            return;
+          }
+        }
+      }
+    } else {
+      this.currentPos = this.mazeGrid[posX][posY];
+    }
+  }
+
+  async getCurrentCellOnViewport() {
+    await this.delay(100);
+    this.cellElements.forEach((comp) => {
+      if (comp.posX === this.currentPos.posX && comp.posY === this.currentPos.posY) {
+        const rect = (comp as any).getBoundingClientRect?.();
+        if (rect) {
+          this.posForFox.posX = rect.top;
+          this.posForFox.posY = rect.left;
+        }
+      }
+    });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.getCurrentCellOnViewport();
   }
 
   randomizeForDefaultMaze() {
@@ -96,24 +203,19 @@ export class Maze implements OnInit {
     return toBeReturned;
   }
 
-  checkCellType(cell: Cell): squareType {
-    if (cell?.entrance) return squareType.start;
-    if (cell?.exit) return squareType.finish;
-    if (this.path.includes(cell)) return squareType.path;
-    return squareType.empty;
+
+  checkCellType(cell: Cell): cellType {
+    if (cell?.entrance) return cellType.start;
+    if (cell?.exit) return cellType.finish;
+    // if (this.path.includes(cell)) return cellType.path;
+    return cellType.empty;
   }
 
-  getCellCssClass(cell: Cell): string {
-    const type = this.checkCellType(cell);
-    switch (type) {
-      case squareType.start:
-        return 'start';
-      case squareType.finish:
-        return 'finish';
-      case squareType.path:
-        return 'path';
-      default:
-        return 'empty';
-    }
+  setType(cell: Cell): cellType {
+    return this.checkCellType(cell);
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
