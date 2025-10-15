@@ -15,3 +15,10 @@ body {
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
 }
+
+:root {
+  --bg-color: rgb(28, 29, 27);
+  --cell-bg: rgb(248, 225, 217);
+  --start-color: coral;
+  --finish-color: lightgreen;
+}

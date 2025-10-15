@@ -1,1 +1,23 @@
-<div class="{{_squareCssClass}}"></div>
+<div class="{{ _squareCssClass }}" style="position: relative">
+  @if(walls[0]){
+  <div class="wall top"></div>
+  } @if(walls[1]){
+  <div class="wall right"></div>
+  } @if(walls[2]){
+  <div class="wall bottom"></div>
+  } @if(walls[3]){
+  <div class="wall left"></div>
+  } @if(true){
+  <!-- showTopLeftCorner() -->
+  <div class="corner top-left"></div>
+  } @if(true){
+  <!-- showBottomLeftCorner() -->
+  <div class="corner bottom-left"></div>
+  } @if (true) {
+  <!-- showTopRightCorner() -->
+  <div class="corner top-right"></div>
+  } @if(true){
+  <!-- showTopRightCorner() -->
+  <div class="corner bottom-right"></div>
+  }
+</div>

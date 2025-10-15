@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { mazeData as _mazeData } from '../data/labyrinthes';
 import { CommonModule } from '@angular/common';
-import { Cell as CellComponent } from "./cell/cell";
-import { squareType } from './cell/cell'; // Adjust the path
+import { Cell as CellComponent } from './cell/cell';
+import { squareType } from './cell/cell';
 
 interface Cell {
   posX: number;
@@ -18,18 +18,17 @@ interface Cell {
   selector: 'app-maze',
   imports: [CommonModule, CellComponent],
   templateUrl: './maze.html',
-  styleUrl: './maze.css'
+  styleUrl: './maze.css',
 })
-
 export class Maze implements OnInit {
   squareType = squareType;
   mazeData = _mazeData;
   mazeGrid: Cell[][] = [];
-  mazeSize = 3; // Default size
+  mazeSize = 5; // Default size
   path: Cell[] = [];
 
   ngOnInit() {
-    this.loadMaze('3', 'ex-0');
+    this.loadMaze('5', 'ex-0');
     this.createCells();
   }
 
