@@ -13,10 +13,10 @@ export class Cell {
   @Input() posX!: number;
   @Input() posY!: number;
   @Input() mazeSize!: number;
-  @Input() type!: cellType;
+  @Input() currentCellType: cellType = cellType.empty;
   @ViewChild('cellDiv', { static: true }) cellDiv!: ElementRef;
 
-  @Input() currentCellType: cellType = cellType.empty;
+  public cellType = cellType; // enum
   public nbrOfPathsLeft!: number;
 
   get wallThickness(): string {
@@ -28,10 +28,6 @@ export class Cell {
   ngOnInit() {
 
   }
-  /////////////////////////////////////
-  //////// LOGIC FOR BG COLOR /////////
-  /////////////////////////////////////
-
 
   /////////////////////////////////////
   ////////// LOGIC FOR WALLS //////////

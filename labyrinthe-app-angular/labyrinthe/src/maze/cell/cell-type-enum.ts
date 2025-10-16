@@ -1,6 +1,6 @@
 export enum cellType {
-    empty,
-    start,
-    finish,
-    visited
+    empty = 'empty',
+    start = 'start',
+    finish = 'finish',
+    visited = 'visited'
 }

@@ -33,6 +33,7 @@ export class MoveUtils {
             const newX = currPos.posX + possibleMoves[direction].dirX;
             const newY = currPos.posY + possibleMoves[direction].dirY;
             this.currentPos = mazeGrid[newX][newY];
+            this.currentPos.visited = true;
             currPos = this.currentPos;
         }
         return currPos;

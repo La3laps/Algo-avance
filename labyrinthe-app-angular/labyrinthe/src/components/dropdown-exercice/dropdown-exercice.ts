@@ -12,10 +12,11 @@ import { mazeData as _mazeData, mazeData } from '../../data/labyrinthes';
 import { MazeCommunicationService } from './maze-communication-service';
 import { RandomExercice } from '../random-exercice/random-exercice';
 import { Subscription } from 'rxjs';
+import { ResetExercice } from '../reset-exercice/reset-exercice';
 
 @Component({
   selector: 'app-dropdown-exercice',
-  imports: [RandomExercice],
+  imports: [RandomExercice, ResetExercice],
   templateUrl: './dropdown-exercice.html',
   styleUrl: './dropdown-exercice.css',
 })
@@ -29,7 +30,7 @@ export class DropdownExercice {
 
   @Output() exerciceSelected = new EventEmitter<{ size: string; exercice: string }>();
 
-  constructor(private mazeCommService: MazeCommunicationService) {}
+  constructor(private mazeCommService: MazeCommunicationService) { }
 
   ngOnInit() {
     this.randomSub = this.mazeCommService.randomSelected$.subscribe(() => {

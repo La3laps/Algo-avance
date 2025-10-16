@@ -13,12 +13,17 @@
   background-color: #f8e1d9;
 }
 
-.start {
-  background-color: #f5b39c;
+.visited {
+  background-color: #f09d9d;
 }
 
-.visited {
-  background-color: red;
+.start {
+  background: linear-gradient(0deg, #f09d9d, #e99292, #e28787, #d87979, #ce6767);
+  background-size: 400% 400%;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, .2);
+  -webkit-animation: cell-anim 3s ease infinite;
+  -moz-animation: cell-anim 3s ease infinite;
+  animation: cell-anim 3s infinite;
 }
 
 .finish {
@@ -28,6 +33,55 @@
   background-repeat: no-repeat;
   background-size: 70%;
   backdrop-filter: inherit;
+
+  background: linear-gradient(0deg, #99e4c1, #88d8b3, #7cd1a9, #6fc99f, #53ad83);
+  background-size: 400% 400%;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, .2);
+  -webkit-animation: cell-anim 3s ease infinite;
+  -moz-animation: cell-anim 3s ease infinite;
+  animation: cell-anim 3s infinite;
+}
+
+@-webkit-keyframes cell-anim {
+  0% {
+    background-position: 97% 0%
+  }
+
+  50% {
+    background-position: 4% 100%
+  }
+
+  100% {
+    background-position: 97% 0%
+  }
+}
+
+@-moz-keyframes cell-anim {
+  0% {
+    background-position: 97% 0%
+  }
+
+  50% {
+    background-position: 4% 100%
+  }
+
+  100% {
+    background-position: 97% 0%
+  }
+}
+
+@keyframes cell-anim {
+  0% {
+    background-position: 97% 0%
+  }
+
+  50% {
+    background-position: 4% 100%
+  }
+
+  100% {
+    background-position: 97% 0%
+  }
 }
 
 .wall {

@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+.reset {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.reset-container {
+    position: relative;
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+
+
+
+.reset+img {
+    position: relative;
+    z-index: 0;
+    transition: all 200ms linear;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.reset+img .uil {
+    font-size: 15px;
+    margin-left: 10px;
+    transition: transform 200ms linear;
+}
+
+.uil {
+    font-size: 22px;
+}

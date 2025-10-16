@@ -1,4 +1,4 @@
-<div #cellDiv class="{{ currentCellType.toString() }}" [ngStyle]="{
+<div #cellDiv [class]="cellType[currentCellType]" [ngStyle]="{
     'position': 'relative',
 }" [ngStyle]="">
   @if(walls[0]){
