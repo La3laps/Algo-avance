@@ -1,3 +1,5 @@
+import { Direction } from "../move-utils";
+
 export interface Cell {
   posX: number;
   posY: number;
@@ -5,4 +7,7 @@ export interface Cell {
   entrance?: boolean;
   exit?: boolean;
   visited?: boolean; // For algorithm use
+  parent?: Cell;
+  visitedForAlgo?: boolean;
+  cameFromDir?: Direction;
 }

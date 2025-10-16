@@ -2,18 +2,11 @@
   <app-random-exercice></app-random-exercice>
   <input #dropdown class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
   <label class="for-dropdown" for="dropdown">
-    ✔️ Choix du Labyrinthe <i class="uil uil-arrow-down"></i
-  ></label>
+    SELECTION <i class="uil uil-arrow-down"></i></label>
   <div class="section-dropdown">
     @for(choice of sizeChoice; track $index){
     <div class="dropdown-item">
-      <input
-        #dropdownSub
-        class="dropdown-sub"
-        type="checkbox"
-        id="{{ choice }}"
-        name="dropdown-sub-{{ choice }}"
-      />
+      <input #dropdownSub class="dropdown-sub" type="checkbox" id="{{ choice }}" name="dropdown-sub-{{ choice }}" />
       <label class="for-dropdown-sub" for="{{ choice }}">
         <strong>Taille:</strong> <span class="subtle-txt">{{ choice }}x{{ choice }}</span>
         <i class="uil uil-plus"></i>
@@ -21,13 +14,17 @@
 
       <div class="section-dropdown-sub">
         @for(exercice of exerciceChoice[$index]; track exercice){
-        <a href="#" style="color: rgb(138, 138, 138)" (click)="sendInfo(choice, exercice)"
-          >{{ exercice || 'Exercice' }} <i class="uil uil-arrow-right"></i
-        ></a>
+        <a href="#" style="color: rgb(138, 138, 138)" (click)="sendInfo(choice, exercice)">{{ exercice || 'Exercice' }}
+          <i class="uil uil-arrow-right"></i></a>
         }
       </div>
     </div>
     }
+
   </div>
+  <app-algorithm-choice></app-algorithm-choice>
+</div>
+<div class="launch-menu">
   <app-reset-exercice></app-reset-exercice>
+  <app-start-exercice></app-start-exercice>
 </div>

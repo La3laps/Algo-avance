@@ -1,0 +1,19 @@
+<div class="container">
+  <input #algorithmDropdown class="algorithm-dropdown" type="checkbox" id="algorithm-dropdown"
+    name="algorithm-dropdown" />
+  <label class="for-algorithm-dropdown" for="algorithm-dropdown">
+    ALGORITHME <i class="uil uil-arrow-down"></i></label>
+  <div class="section-algorithm-dropdown">
+
+    @for(algorithmName of algorithmList; track $index){
+    <div #algorithmName class="algorithm-dropdown-item" (click)="selectAlgorithm(algorithmName)">
+      <input class="algorithm-dropdown-sub" type="checkbox" id="{{ algorithmName }}"
+        name="algorithm-dropdown-sub-{{ algorithmName }}" />
+      <label class="for-algorithm-dropdown-sub" for="{{ algorithmName }}">
+        <strong></strong> <span class="subtle-txt">{{ getPrintedNameFromString(algorithmName) }}</span>
+        <i class="uil uil-plus"></i>
+      </label>
+    </div>
+    }
+  </div>
+</div>

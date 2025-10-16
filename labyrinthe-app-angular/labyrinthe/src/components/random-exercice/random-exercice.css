@@ -1,37 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
 * {
   box-sizing: border-box;
 }
-.random {
+
+.mazeRandom {
   position: absolute;
   left: -9999px;
   opacity: 0;
   pointer-events: none;
 }
 
-.random-container {
+.mazeRandom-container {
   position: relative;
-  margin-bottom: 3%;
+  display: inline-block;
+  margin-bottom: 30px;
 }
 
-.random:hover + label {
-  background-color: #ffeba7;
+.mazeRandom-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
 }
 
-.random + label {
+.mazeRandom-container:hover::after {
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+
+.mazeRandom+label {
   position: relative;
   z-index: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Pixelify Sans", sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1;
   height: 40px;
   transition: all 200ms linear;
   border-radius: 4px;
   width: 220px;
   letter-spacing: 1px;
-  background-color: #f2dbd3;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -47,11 +61,15 @@
   text-align: center;
   border: none;
   cursor: pointer;
-  color: var(--bg-color);
-  box-shadow: 0 12px 35px 0 rgba(255, 235, 167, 0.2);
+  color: rgb(99, 99, 99);
+  text-shadow: 1px 1px 0 rgba(99, 99, 99, .2);
+  background-image: url('../../../public/button_default.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-.random + label .uil {
+.mazeRandom+label .uil {
   font-size: 15px;
   margin-left: 10px;
   transition: transform 200ms linear;

@@ -12,11 +12,11 @@ import { MazeCommunicationService } from '../dropdown-exercice/maze-communicatio
 export class RandomExercice {
   @Output() randomExerciceSelected = new EventEmitter<void>();
 
-  constructor(private mazeCommService: MazeCommunicationService) {}
+  constructor(private mazeCommService: MazeCommunicationService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  sendInfo() {
+  sendRandom() {
     this.mazeCommService.selectRandom();
   }
 }

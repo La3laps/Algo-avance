@@ -13,10 +13,11 @@ import { MazeCommunicationService } from './maze-communication-service';
 import { RandomExercice } from '../random-exercice/random-exercice';
 import { Subscription } from 'rxjs';
 import { ResetExercice } from '../reset-exercice/reset-exercice';
-
+import { StartExercice } from '../start-exercice/start-exercice';
+import { AlgorithmChoice } from '../algorithm-choice/algorithm-choice';
 @Component({
   selector: 'app-dropdown-exercice',
-  imports: [RandomExercice, ResetExercice],
+  imports: [RandomExercice, ResetExercice, StartExercice, AlgorithmChoice],
   templateUrl: './dropdown-exercice.html',
   styleUrl: './dropdown-exercice.css',
 })

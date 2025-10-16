@@ -9,6 +9,12 @@
 
     } }
   </div>
+  <p class="curr-ex">TAILLE:&nbsp; <i class="red"> {{sizeKey}}x{{sizeKey}}</i> &nbsp;&nbsp;&nbsp;|
+    &nbsp;&nbsp;&nbsp;EXERCICE<i class="red"> N°
+      {{exerciseKeyForPrint}}</i> <br>
+    ALGORITHME:&nbsp;&nbsp; <i class="red">{{getPrintedNameFromString(currentAlgorithm)}}</i>
+  </p>
 </div>
+
 <app-tunic-fox [posForFox]="posForFox" [mazeSize]="mazeSize" [foxImg]="foxImg"
   [foxFlipped]="foxFlipped"></app-tunic-fox>

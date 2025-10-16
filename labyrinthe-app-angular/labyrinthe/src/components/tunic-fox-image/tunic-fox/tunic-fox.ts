@@ -14,7 +14,6 @@ export class TunicFox {
   ngOnInit() { }
 
   get setFoxPos(): object {
-    // console.log('Fox position: ' + this.posForFox.posX + ' : ' + this.posForFox.posY);
     return { top: `${this.posForFox.posX}px`, left: `${this.posForFox.posY}px` };
   }
 

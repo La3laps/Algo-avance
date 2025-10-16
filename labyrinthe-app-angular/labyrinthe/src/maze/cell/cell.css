@@ -27,19 +27,16 @@
 }
 
 .finish {
-  background-color: #99e4c1;
-  background-image: url('../../../public/finish_line.gif');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 70%;
-  backdrop-filter: inherit;
-
   background: linear-gradient(0deg, #99e4c1, #88d8b3, #7cd1a9, #6fc99f, #53ad83);
   background-size: 400% 400%;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, .2);
   -webkit-animation: cell-anim 3s ease infinite;
   -moz-animation: cell-anim 3s ease infinite;
   animation: cell-anim 3s infinite;
+
+  /* background-image: url('../../../public/finish_line.gif');
+  background-position: center; 
+  background-repeat: no-repeat;
+  */
 }
 
 @-webkit-keyframes cell-anim {

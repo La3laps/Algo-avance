@@ -2,9 +2,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MazeCommunicationService } from '../dropdown-exercice/maze-communication-service';
 
 enum buttonState {
-  default = 'restart_default.png',
-  hover = 'restart_hover.png',
-  clicked = 'restart_clicked.png'
+  default = 'start_default.png',
+  hover = 'start_hover.png',
+  clicked = 'start_clicked.png'
 }
 
 @Component({

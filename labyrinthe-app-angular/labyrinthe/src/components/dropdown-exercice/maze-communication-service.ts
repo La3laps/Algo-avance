@@ -9,12 +9,14 @@ export class MazeCommunicationService {
   private randomSelectedSource = new Subject<void>();
   private resetSelectedSource = new Subject<void>();
   private startSelectedSource = new Subject<void>();
+  private algorithmSelectedSource = new Subject<string>();
 
   exerciceSelected$ = this.exerciceSelectedSource.asObservable();
   randomSelected$ = this.randomSelectedSource.asObservable();
   resetSelected$ = this.resetSelectedSource.asObservable();
   startSelected$ = this.startSelectedSource.asObservable();
-  
+  algorithmSelected$ = this.algorithmSelectedSource.asObservable();
+
   selectExercice(data: { size: string; exercice: string }) {
     this.exerciceSelectedSource.next(data);
   }
@@ -28,4 +30,8 @@ export class MazeCommunicationService {
   startExercice() {
     this.startSelectedSource.next();
   }
+  selectAlgorithm(data: string) {
+    this.algorithmSelectedSource.next(data);
+  }
+
 }
